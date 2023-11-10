@@ -20,8 +20,8 @@ class MainActivity : AppCompatActivity() {
 
         // Настройка карты
         mapView = findViewById(R.id.mapView)
-        mapView.map.isRotateGesturesEnabled = true
-        mapView.map.isZoomGesturesEnabled = true
+        mapView.map.isRotateGesturesEnabled = true //depricated map
+        mapView.map.isZoomGesturesEnabled = true //depricated map
     }
 
     override fun onStart() {
