@@ -4,7 +4,8 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.yandex.mapkit.mapview.MapView
 import com.yandex.mapkit.MapKitFactory
-import com.example.walknavigator.R
+import com.yandex.mapkit.geometry.Point
+import com.yandex.mapkit.map.CameraPosition
 
 
 class MainActivity : AppCompatActivity() {
@@ -14,14 +15,21 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         // Инициализация Yandex Map Kit
-        MapKitFactory.setApiKey("7761eaaf-7983-4493-8fd5-3b6d002f1627")
+        MapKitFactory.setApiKey(BuildConfig.MAPKIT_API_KEY)
+
         MapKitFactory.initialize(this)
         setContentView(R.layout.activity_main)
 
         // Настройка карты
         mapView = findViewById(R.id.mapView)
-        mapView.map.isRotateGesturesEnabled = true //depricated map
-        mapView.map.isZoomGesturesEnabled = true //depricated map
+        mapView.map.move(
+            CameraPosition(
+                Point(55.751225, 37.629540),
+                /* zoom = */ 17.0f,
+                /* azimuth = */ 150.0f,
+                /* tilt = */ 30.0f
+            )
+        )
     }
 
     override fun onStart() {
