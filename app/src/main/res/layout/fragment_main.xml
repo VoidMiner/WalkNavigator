@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.yandex.mapkit.mapview.MapView
+        android:id="@+id/mapView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/bottomPanel" />
+
+    <RelativeLayout
+        android:id="@+id/bottomPanel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="#FFFFFF">
+
+        <TextView
+            android:id="@+id/finishText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Финиш:"
+            android:textSize="18sp"
+            android:padding="8dp" />
+
+        <Button
+            android:id="@+id/openAddressInputButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Начать"
+            android:layout_below="@id/finishText"
+            android:onClick="openAddressInputScreen"
+            android:padding="8dp" />
+    </RelativeLayout>
+
+</RelativeLayout>
