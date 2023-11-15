@@ -1,16 +1,14 @@
 package com.example.walknavigator
 
-import android.content.Intent
+import android.Manifest.permission.ACCESS_FINE_LOCATION
+import android.content.pm.PackageManager
 import android.os.Bundle
-import android.view.View
-import android.widget.Button
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 import com.example.walknavigator.databinding.ActivityMainBinding
-import com.yandex.mapkit.mapview.MapView
+import com.yandex.mapkit.MapKit
 import com.yandex.mapkit.MapKitFactory
-import com.yandex.mapkit.geometry.Point
-import com.yandex.mapkit.map.CameraPosition
+import com.yandex.mapkit.mapview.MapView
 
 
 class MainActivity : AppCompatActivity() {
@@ -29,13 +27,13 @@ class MainActivity : AppCompatActivity() {
         val rootView = binding.root
         setContentView(rootView)
 
+
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
                 .replace(R.id.fragmentContainer, MainFragment())
                 .commit()
         }
     }
-
     override fun onStart() {
         super.onStart()
         mapView.onStart()

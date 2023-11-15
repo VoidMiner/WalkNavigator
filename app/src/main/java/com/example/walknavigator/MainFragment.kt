@@ -24,16 +24,40 @@ class MainFragment : Fragment() {
 
         MapKitFactory.initialize(requireContext())
         mapView = binding.mapView
-        // Настройка карты
+        val latitude = arguments?.getDouble("latitude", 0.0) ?: 0.0
+        val longitude = arguments?.getDouble("longitude", 0.0) ?: 0.0
+
+        mapView = MapView(requireContext())
         mapView.map.move(
             CameraPosition(
-                Point(55.751225, 37.629540),
+                Point(latitude, longitude),
                 /* zoom = */ 17.0f,
                 /* azimuth = */ 150.0f,
                 /* tilt = */ 30.0f
             )
         )
+        // Настройка карты
+        /*mapView.map.move(
+            CameraPosition(
+                Point(55.751225, 37.629540), // Москва
+                /* zoom = */ 17.0f,
+                /* azimuth = */ 150.0f,
+                /* tilt = */ 30.0f
+            )
+        )*/
 
         return rootView
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val addressInputFragment = AddressInputFragment()
+        val bundle = Bundle()
+        bundle.putDouble("latitude", 55.751225)
+        bundle.putDouble("longitude", 37.629540)
+        addressInputFragment.arguments = bundle
+        childFragmentManager.beginTransaction()
+            .replace(R.id.container, addressInputFragment) // Замените R.id.container на ID контейнера для вашего фрагмента
+            .commit()
     }
 }
