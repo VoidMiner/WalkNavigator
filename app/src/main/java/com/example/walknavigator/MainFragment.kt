@@ -21,6 +21,8 @@ class MainFragment : Fragment() {
     ): View? {
         binding = FragmentMainBinding.inflate(inflater, container, false)
         val rootView = binding.root
+        // Установка ключа API
+        //MapKitFactory.setApiKey(BuildConfig.MAPKIT_API_KEY)
 
         MapKitFactory.initialize(requireContext())
 
@@ -38,18 +40,33 @@ class MainFragment : Fragment() {
             )
         )
 
+
         return rootView
     }
-
-    /*override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        /*val addressInputFragment = AddressInputFragment()
+
+
+        // Добавьте обработчик для кнопки "Старт"
+        binding.openAddressInputButton.setOnClickListener {
+            onStartClicked(it)
+        }
+
+    }
+
+    fun onStartClicked(view: View) {
+        // Ваш текущий код
+
+        // Добавьте код для открытия AddressInputFragment
+        val addressInputFragment = AddressInputFragment()
         val bundle = Bundle()
         bundle.putDouble("latitude", 55.751225)
         bundle.putDouble("longitude", 37.629540)
         addressInputFragment.arguments = bundle
-        childFragmentManager.beginTransaction()
-            .replace(R.id.fragmentContainer, addressInputFragment) // Замените R.id.container на ID контейнера для вашего фрагмента
-            .commit() */
-    }*/
+
+        val transaction = parentFragmentManager.beginTransaction()
+        transaction.replace(R.id.fragmentContainer, addressInputFragment)
+        transaction.addToBackStack(null)  // Добавляет транзакцию в стек возврата
+        transaction.commit()
+    }
 }

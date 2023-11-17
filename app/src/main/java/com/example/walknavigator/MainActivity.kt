@@ -44,7 +44,6 @@ class MainActivity : AppCompatActivity() {
             MapKitFactory.getInstance().onStart()
         }
     }
-
     override fun onStop() {
         super.onStop()
         if (::mapView.isInitialized) {

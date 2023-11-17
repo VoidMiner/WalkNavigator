@@ -31,12 +31,12 @@ class AddressInputFragment : Fragment() {
     ): View? {
         binding = FragmentAddressInputBinding.inflate(inflater, container, false)
         val rootView = binding.root
+
         mapView = arguments?.getParcelable("mapView") ?: throw IllegalArgumentException("MapView not found")
-
-
+        mapView = rootView.findViewById(R.id.mapView)
         // Установка ключа API
         // Инициализация MapKit и другие действия
-        MapKitFactory.setApiKey(BuildConfig.MAPKIT_API_KEY)
+        //MapKitFactory.setApiKey(BuildConfig.MAPKIT_API_KEY)
         MapKitFactory.getInstance().onStart()
         mapView.onStart()
 
@@ -78,7 +78,7 @@ class AddressInputFragment : Fragment() {
         val latitude = arguments?.getDouble("latitude", 0.0) ?: 0.0
         val longitude = arguments?.getDouble("longitude", 0.0) ?: 0.0
 
-        mapView = MapView(requireContext())
+        //mapView = MapView(requireContext())
         mapView.map.move(
             CameraPosition(
                 Point(latitude, longitude),
@@ -125,6 +125,8 @@ class AddressInputFragment : Fragment() {
                 30.0f
             )
         )
+        // Добавьте методы для обработки событий клика на кнопки
+
     }
 
     private fun searchAddresses(query: String, searchListener: Session.SearchListener){
