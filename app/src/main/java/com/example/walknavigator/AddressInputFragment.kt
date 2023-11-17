@@ -35,8 +35,10 @@ class AddressInputFragment : Fragment() {
 
 
         // Установка ключа API
+        // Инициализация MapKit и другие действия
         MapKitFactory.setApiKey(BuildConfig.MAPKIT_API_KEY)
-        var mapKit: MapKit = MapKitFactory.getInstance()
+        MapKitFactory.getInstance().onStart()
+        mapView.onStart()
 
 
         val addressInput = binding.addressInput
@@ -109,6 +111,20 @@ class AddressInputFragment : Fragment() {
         }
 
         return rootView
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val latitude = arguments?.getDouble("latitude", 0.0) ?: 0.0
+        val longitude = arguments?.getDouble("longitude", 0.0) ?: 0.0
+        mapView.map.move(
+            CameraPosition(
+                Point(latitude, longitude),
+                17.0f,
+                150.0f,
+                30.0f
+            )
+        )
     }
 
     private fun searchAddresses(query: String, searchListener: Session.SearchListener){

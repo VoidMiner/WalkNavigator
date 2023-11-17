@@ -1,14 +1,12 @@
 package com.example.walknavigator
 
-import android.Manifest.permission.ACCESS_FINE_LOCATION
-import android.content.pm.PackageManager
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
 import com.example.walknavigator.databinding.ActivityMainBinding
-import com.yandex.mapkit.MapKit
 import com.yandex.mapkit.MapKitFactory
 import com.yandex.mapkit.mapview.MapView
+import com.example.walknavigator.R
+
 
 
 class MainActivity : AppCompatActivity() {
@@ -26,8 +24,12 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         val rootView = binding.root
         setContentView(rootView)
-
-
+        // Инициализация mapView
+        //mapView = binding.mapView
+        /*java.lang.RuntimeException: Unable to start activity ComponentInfo{com.example.walknavigator/com.example.walknavigator.MainActivity}: java.lang.NullPointerException: findViewById(R.id.mapView) must not be null
+        Caused by: java.lang.NullPointerException: findViewById(R.id.mapView) must not be null
+        at com.example.walknavigator.MainActivity.onCreate(MainActivity.kt:27)*/
+        //mapView.map.mapType = MapType.MAP
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
                 .replace(R.id.fragmentContainer, MainFragment())
@@ -36,13 +38,18 @@ class MainActivity : AppCompatActivity() {
     }
     override fun onStart() {
         super.onStart()
-        mapView.onStart()
-        MapKitFactory.getInstance().onStart()
+        // Проверка на инициализацию mapView
+        if (::mapView.isInitialized) {
+            mapView.onStart()
+            MapKitFactory.getInstance().onStart()
+        }
     }
 
     override fun onStop() {
         super.onStop()
-        mapView.onStop()
-        MapKitFactory.getInstance().onStop()
+        if (::mapView.isInitialized) {
+            mapView.onStop()
+            MapKitFactory.getInstance().onStop()
+        }
     }
 }
